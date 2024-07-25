@@ -13,11 +13,12 @@ const Sidebar = () => {
         <li className="sb__link">
         <Link to="/listflower">List Flower</Link>
         </li>
+        
         <li className="sb__link">
-          Add Accessory
+        <Link to="/addaccessory">Add Accessory</Link>          
         </li>
         <li className="sb__link">
-          List Accessory
+          <Link to='/listaccessory'>List Accessory</Link>
         </li>
        
 

@@ -6,6 +6,8 @@ import Sidebar from './components/Sidebar'
 import './App.css'
 import AddFlower from './pages/AddFlower.jsx'
 import ListFlowers from './pages/ListFlowers.jsx'
+import AddAccessory from './pages/AddAccessory.jsx'
+import ListAccessory from './pages/ListAccessory.jsx'
 
 
 export const url = 'https://milehighserv.onrender.com'
@@ -24,6 +26,8 @@ const App = () => {
         <Route path='/' key="_index"  element={<Landing /> }/>
         <Route path='/addflower' element={ <AddFlower /> } />
         <Route path='/listflower' element= { <ListFlowers />} />
+        <Route path='/addaccessory' element= { <AddAccessory />} />
+        <Route path='/listaccessory' element={ <ListAccessory />} />
       </Routes>
       </div>
       </div>
