@@ -1,0 +1,12 @@
+.landing__container {
+    background-color: #0d0b24;
+    width: 85vw;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;    
+    padding-left: 3%;
+    width: 90%;
+
+    
+}

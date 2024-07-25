@@ -1,0 +1,44 @@
+.sb__container {
+    background-image: url(
+"https://cdn11.bigcommerce.com/s-qsp8zkqq0s/images/stencil/original/image-manager/aaa-weed-kitta-long.jpg?t=1720920697"
+    );
+    background-size: cover;
+    width: 15vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;  
+    position: fixed;  
+
+}
+.sb__container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(27, 27, 27, 0.568);
+}
+.sb__links {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    gap: 90px;
+    align-items: center;
+    justify-content: center;
+}
+.sb__link:hover {
+    color: red;
+}
+.thca {
+    position: relative;
+    z-index: 2;
+    border: 15px solid white;
+    width: 10vw;
+}

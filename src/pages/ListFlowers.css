@@ -1,0 +1,58 @@
+
+.flowers {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0px 32px 24px;
+    border: 2px solid lightgrey;
+    width: 80%;
+    margin-top: 16px;
+}
+.loading {
+    color: #fff;
+    font-size: 32px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 32px;
+}
+.flower__title {
+    padding-bottom: 32px;
+}
+.image__wrapper {
+    display: flex;
+}
+.flower__image {
+    width: 150px;
+}
+.flower__display {
+    
+    font-size: 22px;
+}
+.info__wrapper {
+    padding-left: 32px;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    align-items: center;
+}
+.flower__title {
+    text-align: center;
+    color: rgba(0, 255, 0, 0.712);
+    font-size: 52px;
+}
+.flower__desc { 
+    font-size: 18px;
+    width: 95%;
+}
+.remove__button {
+    background-color: rgba(0, 255, 0, 0.712);
+    padding: 6px 12px;
+    color: white;
+    width: 75px;
+    height: 50px;
+    align-items: end;
+    border-radius: 8px;
+}
+.remove__button:hover {
+    background-color: white;
+    color: rgba(0, 255, 0, 0.712);
+}

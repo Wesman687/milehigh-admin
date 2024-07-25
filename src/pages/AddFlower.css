@@ -1,0 +1,92 @@
+.page__wrapper {
+    display: flex;
+    gap: 8px;
+}
+.page__handler {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+    color: #fff;
+    width: 90%;
+}
+.page__forms {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+
+}
+.page__upload {
+    display: flex;
+    gap: 4px;
+    color: #fff;
+    font-size: 24px;
+    align-items: center;
+
+}
+.upload__image {
+    width: 100px;
+    cursor: pointer;
+    padding: 16px;
+}
+.container {
+    background-color: grey;
+}
+p {
+    font-size: 32px;
+}
+.page__list {
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    width: 100%;
+}
+.name, .list {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0px;
+}
+.form__inputs {
+    background: transparent;
+    outline: green;
+    border: 2px grey solid;
+    padding: 2.5px;
+    width: 40%;
+    text-align: center;
+    color: #fff;
+}
+.form__inputs:focus, .desc__input:focus {
+    color: red;
+    border-color: red;
+}
+.desc__input {    
+    background: transparent;
+    outline: green;
+    border: 2px grey solid;
+    width: 90%;
+    height: 20vh;
+}
+.description__list {
+    width: 100%;
+}
+.title__text {
+    padding-right: 22px;
+}
+.price__text {
+    padding-right: 12px;
+}
+.desc__text {
+    padding-right: 12px;
+}
+.submit__button {
+    margin: 0 auto;
+    background: rgba(0, 255, 0, 0.712);
+    font-size: 32px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: #fff;
+}
+.submit__button:hover {
+    background-color: white;
+    color: rgba(0, 255, 0, 0.712);
+}

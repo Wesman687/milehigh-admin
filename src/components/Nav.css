@@ -1,0 +1,87 @@
+.nav__container {
+    background-image: url(
+"https://cdn11.bigcommerce.com/s-qsp8zkqq0s/images/stencil/original/image-manager/aaa-weed-kitta-long.jpg?t=1720920697"
+    );
+    background-size: cover;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    display: flex;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+.nav__container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(27, 27, 27, 0.568);
+}
+.logo__container {
+    position: relative;
+    z-index: 2;
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo__text {
+    position: relative;
+    z-index: 2;
+    color: white;
+    font-size: 28px;
+    padding: 12px;
+    margin-left: 12px;
+    border: 18px solid rgba(0, 255, 0, 0.712);
+    border-radius: 24px;
+    text-align: center;
+}
+
+.link {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    
+}
+.links {
+    display: flex;
+    gap: 32px;
+    
+
+}
+.nav__wrapper {
+    display: flex;
+    width: 85vw;
+    align-items: center;
+    justify-content: center;
+}
+.nav__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 48px;
+    position: relative;
+    margin-left: 8px;
+}
+.cart__length {
+    background-color: red;
+    color: white;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 4px;
+    right: -4px;
+    pointer-events: none;
+  }
