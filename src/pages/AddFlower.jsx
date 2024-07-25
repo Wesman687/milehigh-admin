@@ -93,7 +93,7 @@ const AddFlower = () => {
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
                 className="form__inputs"
-                placeholder="Insert Price here"
+                placeholder="Insert Price here Numbers only, ie 180"
                 type="text"
               ></input>
             </div>
