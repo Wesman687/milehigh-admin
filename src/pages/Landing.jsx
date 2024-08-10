@@ -3,7 +3,7 @@ import "./Landing.css";
 const Landing = () => {
   return (
     <div className="landing__container">
-      <h1>test</h1>
+      <h1></h1>
     </div>
   );
 };
