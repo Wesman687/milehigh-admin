@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
 
-const EditFlower = ({ item, removeFlower, updateApi }) => {
+const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
@@ -14,12 +14,12 @@ const EditFlower = ({ item, removeFlower, updateApi }) => {
   const [price2, setPrice2] = useState("");
   const [price3, setPrice3] = useState("");
   const [category, setCategory] = useState("");
-  const [loading, setLoading] = useState("loading");
   console.log(category)
   function removeItem(id) {
     removeFlower(id);
   }
   async function updateItem(e) {
+    setLoading(true)
     e.preventDefault();
     setLoading(true);
     try {

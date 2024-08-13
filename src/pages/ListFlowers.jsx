@@ -11,6 +11,7 @@ const ListFlowers = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false)
   const fetchFlower = async () => {
+    setLoading(true)
     try {
       const response = await axios.get(`${url}/api/flower/list`);
       if (response.data.success) {
@@ -19,8 +20,10 @@ const ListFlowers = () => {
     } catch (error) {
       toast.error("Error Occured");
     }
+    setLoading(false)
   };
   const removeFlower = async (id) => {
+    setLoading(true)
     try {
       const response = await axios.post(`${url}/api/flower/remove`, { id });
       if (response.data.success) {
@@ -44,7 +47,7 @@ const ListFlowers = () => {
         <p className="flower__title">Flower List</p>
         {((data.length > 0) && !loading) ? 
           data.map((item, index) => (
-            <EditFlower item={item} key={index} removeFlower={removeFlower} updateApi={updateApi}/>
+            <EditFlower item={item} key={index} removeFlower={removeFlower} updateApi={updateApi} setLoading={setLoading}/>
             
           ))
         :
