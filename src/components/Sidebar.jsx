@@ -13,6 +13,9 @@ const Sidebar = () => {
         <li className="sb__link">
         <Link to="/listflower">List Flower</Link>
         </li>
+        <li className="sb__link">
+        <Link to="/listorders">List Orders</Link>
+        </li>
         
        
 
