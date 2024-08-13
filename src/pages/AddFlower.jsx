@@ -82,7 +82,7 @@ const AddFlower = () => {
                       <option value="Flower" data-default>
                         Flower
                       </option>
-                      <option value="Flower" data-default>
+                      <option value="Resin/Crumble" data-default>
                         Resin/Crumble
                       </option>
                     </select>
