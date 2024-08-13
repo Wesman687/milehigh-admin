@@ -22,6 +22,8 @@
 }
 .flower__image {
     width: 150px;
+    max-height: 150px;
+    
 }
 .flower__display {
     
@@ -31,7 +33,7 @@
     padding-left: 32px;
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 100%;
     align-items: center;
 }
 .flower__title {
@@ -51,8 +53,50 @@
     height: 50px;
     align-items: end;
     border-radius: 8px;
+    margin: 6px;
+}
+.button__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.number__container {
+    display: flex;
+    width: 100%;
 }
 .remove__button:hover {
     background-color: white;
     color: rgba(0, 255, 0, 0.712);
+}
+.update__input {
+    background-color: transparent;
+    color: white;
+    font-size: 18px;
+    margin: 6px 0;
+}
+.update__input:focus {
+    border: none;
+}
+.flower__text {
+    display: flex;
+    flex-direction: column;
+}
+.number__input {
+    width: 50px;
+    text-align: center;
+    margin: 12px;
+}
+.update__text {
+    width: 100%;
+    height: 150px;
+    background-color: transparent;
+    color: white;
+}
+.right__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

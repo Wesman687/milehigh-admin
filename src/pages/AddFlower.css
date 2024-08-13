@@ -55,6 +55,13 @@ p {
     text-align: center;
     color: #fff;
 }
+.price {
+    display: flex;
+    align-items: center;
+}
+.price_input {
+    width: 100px;
+}
 .form__inputs:focus, .desc__input:focus {
     color: red;
     border-color: red;
@@ -65,15 +72,24 @@ p {
     border: 2px grey solid;
     width: 90%;
     height: 20vh;
+    color: white;
+    padding: 12px;
 }
 .description__list {
     width: 100%;
+}
+.tag__text {
+    padding-right: 36px;
 }
 .title__text {
     padding-right: 22px;
 }
 .price__text {
-    padding-right: 12px;
+    padding-right: 10px;
+}
+.price__categories {
+    font-weight: 500;
+    font-size: 18px;
 }
 .desc__text {
     padding-right: 12px;
