@@ -17,8 +17,17 @@
 .flower__title {
     padding-bottom: 32px;
 }
+.x__image {
+    cursor: pointer;
+}
 .image__wrapper {
     display: flex;
+    position: relative;
+}
+.x {
+    position: absolute;
+    color: black;
+    cursor: pointer;
 }
 .flower__image {
     width: 150px;

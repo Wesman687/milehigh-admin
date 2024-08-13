@@ -4,6 +4,7 @@ import { url } from "../App";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
+import upload_area from '../assetts/upload_area.png'
 
 const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   const [image, setImage] = useState("");
@@ -14,16 +15,28 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   const [price2, setPrice2] = useState("");
   const [price3, setPrice3] = useState("");
   const [category, setCategory] = useState("");
-  console.log(category)
+  const [changeImage ,setChangeImage] = useState(false)
+  const [newImage, setNewImage] = useState(false)
+  
   function removeItem(id) {
     removeFlower(id);
   }
-  async function updateItem(e) {
+
+  function imageChanged() {
+    setChangeImage(true)
+  }
+  async function onSubmitHandler(e) {
     setLoading(true)
     e.preventDefault();
     setLoading(true);
+    if (changeImage) {
+      console.log(image, "image", newImage, "new image")
+      setImage(newImage)
+      console.log("changing Image")
+    }
     try {
       const formData = new FormData();
+      console.log(image, "image", newImage, "new image")
       formData.append("id", item._id)
       formData.append("name", name);
       formData.append("desc", desc);
@@ -31,8 +44,10 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
       formData.append("prices", price1);
       formData.append("prices", price2);
       formData.append("prices", price3);
-      formData.append("price", "160");
       formData.append("category", category);
+      formData.append("image", image)
+      formData.append("newImage", changeImage)
+    
       const response = await axios.post(`${url}/api/flower/update`, formData);
       if (response.data.success) {
         toast.success("Flower Added");
@@ -58,8 +73,30 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   return (
     <div className="flowers">
       <div className="image__wrapper">
-        <img src={item.image} alt="" className="flower__image" />
+        {changeImage ? 
+        <>        
+        <input
+          type="file"
+          onChange={(e) => {
+            setImage(e.target.files[0]) 
+            setNewImage(e.target.files[0])}}
+          id="image"
+          accept="image/*"
+          hidden
+        />
+        <label htmlFor="image">
+          <img
+            src={newImage ? URL.createObjectURL(newImage) : upload_area}
+            className="flower__image x__image"
+            alt=""
+          />
+        </label>
+        </>
+        : <>
+        <p className="x" onClick={()=> setChangeImage(true)}>X</p> 
+        <img src={item.image} alt="" className="flower__image"/></>}
         <div className="info__wrapper">
+          
           <div className="flower__text">
             <input
               onChange={(e) => setName(e.target.value)}
@@ -110,7 +147,7 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
             </button>
             <button
               className="click remove__button"
-              onClick={(e) => updateItem(e)}
+              onClick={(e) => onSubmitHandler(e)}
             >
               Update
             </button>
@@ -143,6 +180,7 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
         placeholder="Insert Description here"
         type="text"
       ></textarea>
+      
     </div>
   );
 };

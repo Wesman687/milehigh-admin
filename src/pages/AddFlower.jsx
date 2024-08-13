@@ -15,7 +15,7 @@ const AddFlower = () => {
   const [price3, setPrice3] = useState("")
   const [category, setCategory] = useState("")
   const [loading, setLoading] = useState(false);
-  const [option, setOption] = useState("")
+  console.log(image)
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
