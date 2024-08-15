@@ -4,17 +4,12 @@ import "./ListOrders.css";
 import { useEffect } from "react";
 import { useState } from "react";
 import { localUrl, url } from "../App";
-
+import { useNavigate } from "react-router-dom";
 const ListOrders = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const totalPrice = (data) => {
-    let counter = 0
-    data.forEach(item =>{
-      counter += item.quantity * item.basePrice
-    })
-    return counter
-  }
+  const [displayedOrders, setDisplayedOrders] = useState([])
+  const navigate = useNavigate()
   const fetchOrders = async () => {
     setLoading(true);
     try {
@@ -26,6 +21,7 @@ const ListOrders = () => {
       alert("Error Occured");
     }
     setLoading(false);
+    console.log(data)
   };
   useEffect(() => {
     fetchOrders();
@@ -43,10 +39,12 @@ const ListOrders = () => {
             {data.length > 0 && data.map((data, index) => (
                 <>
                 
-            <div className="orders__info">
+            <div key={index} className="orders__info" onClick={()=>navigate(`./${index}`)}>
                 <p className="order__text">{data.createdAt.slice(0,10)}</p>
-                <p className="order__text">${totalPrice(data.products)}</p>
-                <p className="order__text">{data.paymentStatus}</p>
+                <p className="order__text">${data.totalPrice}</p>
+                <p className="order__text">Payment Status: {data.paymentStatus}</p>
+                <p className="order__text" >{data.email}</p>
+                
                 </div>;
                 </>
             ))}

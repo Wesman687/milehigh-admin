@@ -8,16 +8,16 @@
     font-size: 28px;
 }
 .orders__wrapper {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;    
     flex-wrap: wrap;
 }
 .orders__info {
+    cursor: pointer;
     gap: 24px;
     padding: 12px;
-    width: 70vw;
     display: flex;
     border: 2px solid lightgreen;
+    margin: 6px 0;
 }
