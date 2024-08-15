@@ -6,19 +6,20 @@ import { localUrl, url } from "../App";
 import { useEffect } from "react";
 import "./Orders.css";
 const Orders = () => {
-  const [order, setOrder] = useState();
-  const [loading, setLoading] = useState(true);
+    const [order, setOrder] = useState(null)
+  const [loading, setLoading] = useState(false);
   const [orderNumber, setOrderNumber] = useState(0)
   let id = useParams();
   id = id.index;
   const createOrderInShipStation = async () => {
+    await getOrderNumber()
+    setLoading(true)
     try {
       const fullName = order.firstName + " " + order.lastName;
       const shippingMethod = "standard";
       const carrierCode = "stamps_com";
       const serviceCode = "usps_first_class_mail";
       const packageCode = "package";
-
       // Construct the order payload
       const orderPayload = {
         orderNumber: orderNumber,
@@ -94,14 +95,16 @@ const Orders = () => {
       const result = await response.json();
       console.log("Order created successfully:", result);
       updateOrder(result.orderId, orderPayload.orderNumber, order.id)
+      updateNumber()
     } catch (error) {
       console.error("Unexpected error:", error);
     }
+    setLoading(false)
   };
   const getOrderNumber = async () => {
+    console.log('test')
     try {
         const response = await axios.get(`${localUrl}/api/orders/ordernumber`)
-        console.log(response.data.number[0].orderNumber)
         setOrderNumber(response.data.number[0].orderNumber)
     } catch (error) {
         console.log(error)
@@ -109,7 +112,7 @@ const Orders = () => {
   }
   const updateNumber = async () => {
     try {
-        const response = await axios.post(`${localUrl}/api/orders/updatenumber`)
+        const response = await axios.post(`${localUrl}/api/orders/updatenumber`, {id: order.id})
         console.log('update Number launched')
         
     } catch (error) {
@@ -137,49 +140,43 @@ const Orders = () => {
       console.log(error);
     }
   };
-
   const fetchOrder = async () => {
-    setLoading(true);
     try {
       const response = await axios.get(`${url}/api/orders/list`);
       if (response.data.success) {
-        setOrder(response.data.orders[0]);
-        console.log(order);
+        setOrder(response.data.orders[id]);
       }
     } catch (error) {
       alert("Error Occured");
     }
-    setLoading(false);
-  };
+  }
   console.log(order)
-  useEffect(() => {
-    fetchOrder();
-  }, []);
+  useEffect(()=> {
+    fetchOrder()
+  },[])
   return (
     <div className="landing__container">
       {loading ? (
         <>
           <p>Loading...</p>
         </>
-      ) : (
-        <div className="orders__container">
+      ) : (<>
+       {order && <div className="orders__container">
+            <div className="shipping__wrapper">
+          <div className="order__shipping">
           <h1 className="payment__status">
             Payment Status: {order.paymentStatus}
           </h1>
-          <div className="order__shipping">
-            <button onClick={()=>getOrderNumber()}>Order</button>
-            <button onClick={() => updateOrder()} className="ship__button">
-              Warehouse
-            </button>
-            <button
+          <h1 className="payment__status">Ship Status: {order.shippingState}</h1>         
+            
+          </div>
+          <button
               onClick={(e) => createOrderInShipStation(e)}
               className="ship__button"
             >
               Ship Product
             </button>
-          </div>
-          <h1 className="payment__status">Ship Status: </h1>
-          <h1 className="payment__status">{shippingState}</h1>
+            </div>
           <div className="orders__header">
             <b>{order.createdAt.slice(0, 10)}</b>
             <b>{order.transactionId}</b>
@@ -211,8 +208,8 @@ const Orders = () => {
             </div>
             <p>{order.phone}</p>
           </div>
-        </div>
-      )}
+        </div>}
+        </>)}
     </div>
   );
 };
