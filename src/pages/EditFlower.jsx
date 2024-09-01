@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { url } from "../App";
+import { localUrl, url } from "../App";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
-import upload_area from '../assetts/upload_area.png'
+import { ReactSortable } from "react-sortablejs";
+import upload from "../assetts/upload_area.png";
 
 const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   const [image, setImage] = useState("");
@@ -15,40 +16,42 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   const [price2, setPrice2] = useState("");
   const [price3, setPrice3] = useState("");
   const [category, setCategory] = useState("");
-  const [changeImage ,setChangeImage] = useState(false)
-  const [newImage, setNewImage] = useState(false)
+  const [images, setImages] = useState([]);
   
+  async function uploadImage(e) {
+    e.preventDefault();
+    const files = e.target.files;
+    const formData = new FormData();
+    if (files?.length > 0) {
+      for (const file of files) {
+        formData.append("file", file);
+      }
+      formData.append("upload_preset", "ecommerce");
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/dagmwaqcs/upload`,
+        formData
+      );
+
+      setImages((oldImages) => {
+        return [
+          ...oldImages,
+          { link: res.data.secure_url, public_id: res.data.public_id },
+        ];
+      });
+    }
+  }
   function removeItem(id) {
     removeFlower(id);
   }
-
-  function imageChanged() {
-    setChangeImage(true)
+  function removeImage(index, link){
+    setImages(images.filter((item)=> item.link !== link))
   }
   async function onSubmitHandler(e) {
-    setLoading(true)
-    e.preventDefault();
     setLoading(true);
-    if (changeImage) {
-      console.log(image, "image", newImage, "new image")
-      setImage(newImage)
-      console.log("changing Image")
-    }
+    e.preventDefault();
     try {
-      const formData = new FormData();
-      console.log(image, "image", newImage, "new image")
-      formData.append("id", item._id)
-      formData.append("name", name);
-      formData.append("desc", desc);
-      formData.append("title", title);
-      formData.append("prices", price1);
-      formData.append("prices", price2);
-      formData.append("prices", price3);
-      formData.append("category", category);
-      formData.append("image", image)
-      formData.append("newImage", changeImage)
-    
-      const response = await axios.post(`${url}/api/flower/update`, formData);
+      const data = { id: item._id, name, desc, title, price1, price2, price3, images, category}
+      const response = await axios.post(`${url}/api/flower/update`, data);
       if (response.data.success) {
         toast.success("Flower Added");
       } else {
@@ -60,6 +63,9 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
     setLoading(false);
     updateApi();
   }
+  function updateImagesOrder(images){
+    setImages(images)
+  }
   useEffect(() => {
     setName(item.name);
     setTitle(item.title);
@@ -68,35 +74,39 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
     setPrice2(item.prices[1]);
     setPrice3(item.prices[2]);
     setCategory(item.category);
-    setImage(item.image)
+    setImage(item.image);
+    setImages(item.images || []);
   }, []);
   return (
     <div className="flowers">
+      
+      <ReactSortable list={images} setList={updateImagesOrder} className="edit__image--array">
+        {images.length > 0 &&
+          images.map((item, index) => (
+            <label key={index}>              
+        <p className="x" onClick={()=>removeImage(index, item.link)} >
+          X
+        </p>
+              <img src={item.link} className="flower__image x__image" alt="" />
+            </label>
+            
+          ))}
+          </ReactSortable>
+            <label className="upload__image--edit">
+            <input
+                      type="file"
+                      name='file'
+                      onChange={(e) => uploadImage(e)}
+                      hidden
+                    />                    
+                      <img
+                        src={upload}
+                        className="upload__image"
+                        alt=""
+                      />
+                      </label>
       <div className="image__wrapper">
-        {changeImage ? 
-        <>        
-        <input
-          type="file"
-          onChange={(e) => {
-            setImage(e.target.files[0]) 
-            setNewImage(e.target.files[0])}}
-          id="image"
-          accept="image/*"
-          hidden
-        />
-        <label htmlFor="image">
-          <img
-            src={newImage ? URL.createObjectURL(newImage) : upload_area}
-            className="flower__image x__image"
-            alt=""
-          />
-        </label>
-        </>
-        : <>
-        <p className="x" onClick={()=> setChangeImage(true)}>X</p> 
-        <img src={item.image} alt="" className="flower__image"/></>}
         <div className="info__wrapper">
-          
           <div className="flower__text">
             <input
               onChange={(e) => setName(e.target.value)}
@@ -138,40 +148,34 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
             {item.tag && <p className="flower__display">{item.tag}</p>}
           </div>
           <div className="right__container">
-          <div className="button__container">
-            <button
-              className="click remove__button"
-              onClick={() => removeItem(item._id)}
-            >
-              Remove
-            </button>
-            <button
-              className="click remove__button"
-              onClick={(e) => onSubmitHandler(e)}
-            >
-              Update
-            </button>
-            <select
-                      defaultValue={category}
-                      className="pd__options"
-                      name=""
-                      id="size"
-                      onChange={(event) => setCategory(event.target.value)}
-                    >
-                      <option value="">Choose Options</option>
-                      <option value="Flower">
-                        Flower
-                      </option>
-                      <option value="Resin/Crumble">
-                        Resin/Crumble
-                      </option>
-                    </select>
-            
-          </div>
-          <p className="category">{category}</p>
+            <div className="button__container">
+              <button
+                className="click remove__button"
+                onClick={() => removeItem(item._id)}
+              >
+                Remove
+              </button>
+              <button
+                className="click remove__button"
+                onClick={(e) => onSubmitHandler(e)}
+              >
+                Update
+              </button>
+              <select
+                defaultValue={category}
+                className="pd__options"
+                name=""
+                id="size"
+                onChange={(event) => setCategory(event.target.value)}
+              >
+                <option value="">Choose Options</option>
+                <option value="Flower">Flower</option>
+                <option value="Resin/Crumble">Resin/Crumble</option>
+              </select>
+            </div>
+            <p className="category">{category}</p>
           </div>
         </div>
-
       </div>
       <textarea
         onChange={(e) => setDesc(e.target.value)}
@@ -180,7 +184,6 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
         placeholder="Insert Description here"
         type="text"
       ></textarea>
-      
     </div>
   );
 };

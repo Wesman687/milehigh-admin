@@ -59,3 +59,11 @@
     color: rgba(0, 255, 0, 0.712);
     background-color: white;
 }
+.ship__button--disable {
+    background-color: rgba(1, 80, 1, 0.712);
+        color: rgb(95, 94, 94);
+        font-size: 18px;
+        padding: 12px 8px;
+        height: 20%;
+        cursor: not-allowed;
+}

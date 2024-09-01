@@ -1,19 +1,21 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { localUrl, url } from "../App";
 import { useEffect } from "react";
 import "./Orders.css";
+import { toast } from "react-toastify";
 const Orders = () => {
-    const [order, setOrder] = useState(null)
+  const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [orderNumber, setOrderNumber] = useState(0)
+  const [orderNumber, setOrderNumber] = useState(0);
   let id = useParams();
   id = id.index;
+  const navigate = useNavigate()
   const createOrderInShipStation = async () => {
-    await getOrderNumber()
-    setLoading(true)
+    await getOrderNumber();
+    setLoading(true);
     try {
       const fullName = order.firstName + " " + order.lastName;
       const shippingMethod = "standard";
@@ -23,7 +25,7 @@ const Orders = () => {
       // Construct the order payload
       const orderPayload = {
         orderNumber: orderNumber,
-        orderDate: new Date().toISOString().split('T')[0],
+        orderDate: new Date().toISOString().split("T")[0],
         orderStatus: "awaiting_shipment",
         customerEmail: order.email,
         customerUsername: order.firstName,
@@ -94,31 +96,31 @@ const Orders = () => {
 
       const result = await response.json();
       console.log("Order created successfully:", result);
-      updateOrder(result.orderId, orderPayload.orderNumber, order.id)
-      updateNumber()
+      updateOrder(result.orderId, orderPayload.orderNumber, order._id);
+      updateNumber();
     } catch (error) {
       console.error("Unexpected error:", error);
     }
-    setLoading(false)
+    setLoading(false);
   };
   const getOrderNumber = async () => {
-    console.log('test')
     try {
-        const response = await axios.get(`${localUrl}/api/orders/ordernumber`)
-        setOrderNumber(response.data.number[0].orderNumber)
+      const response = await axios.get(`${url}/api/orders/ordernumber`);
+      setOrderNumber(response.data.number[0].orderNumber);
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
+  };
   const updateNumber = async () => {
     try {
-        const response = await axios.post(`${localUrl}/api/orders/updatenumber`, {id: order.id})
-        console.log('update Number launched')
-        
+      const response = await axios.post(`${url}/api/orders/updatenumber`, {
+        id: order._id,
+      });
+      console.log("update Number launched");
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
+  };
   const updateOrder = async (orderId, orderNumber) => {
     const updatePayload = {
       id: order._id,
@@ -126,9 +128,9 @@ const Orders = () => {
       orderNumber: orderNumber,
     };
     try {
-        console.log(updatePayload)
+      console.log(updatePayload);
       const response = await axios.post(
-        `${localUrl}/api/orders/updateorderid`,
+        `${url}/api/orders/updateorderid`,
         updatePayload
       );
       if (response.data.success) {
@@ -140,6 +142,21 @@ const Orders = () => {
       console.log(error);
     }
   };
+  const removeOrder = async (e) => {
+    e.preventDefault()
+      setLoading(true)
+      try {
+        const response = await axios.post(`${localUrl}/api/orders/remove`,  {id: order._id} );
+        if (response.data.success) {
+          toast.success(response.data.message);
+        }
+      } catch (error) {
+        toast.error("Error Occured");
+      }
+      setLoading(false)
+      navigate('/listorders')
+    
+  }
   const fetchOrder = async () => {
     try {
       const response = await axios.get(`${url}/api/orders/list`);
@@ -149,67 +166,82 @@ const Orders = () => {
     } catch (error) {
       alert("Error Occured");
     }
-  }
-  console.log(order)
-  useEffect(()=> {
-    fetchOrder()
-  },[])
+  };
+  console.log(order);
+  useEffect(() => {
+    fetchOrder();
+  }, []);
   return (
     <div className="landing__container">
       {loading ? (
         <>
           <p>Loading...</p>
         </>
-      ) : (<>
-       {order && <div className="orders__container">
-            <div className="shipping__wrapper">
-          <div className="order__shipping">
-          <h1 className="payment__status">
-            Payment Status: {order.paymentStatus}
-          </h1>
-          <h1 className="payment__status">Ship Status: {order.shippingState}</h1>         
-            
-          </div>
-          <button
-              onClick={(e) => createOrderInShipStation(e)}
-              className="ship__button"
-            >
-              Ship Product
-            </button>
-            </div>
-          <div className="orders__header">
-            <b>{order.createdAt.slice(0, 10)}</b>
-            <b>{order.transactionId}</b>
-            <b>${order.totalPrice}</b>
-          </div>
-          <div className="orders__list">
-            {order.products.map((data, index) => (
-              <div key={index} className="order__item">
-                <b>{data.name}</b>
-                <b>{data.option}</b>
-                <b>{data.quantity}</b>
-                <b>${data.price}</b>
-                <b>${data.price * data.quantity}</b>
+      ) : (
+        <>
+          {order && (
+            <div className="orders__container">
+              <div className="shipping__wrapper">
+                <div className="order__shipping">
+                  <h1 className="payment__status">
+                    Payment Status: {order.paymentStatus}
+                  </h1>
+                  <h1 className="payment__status">
+                    Ship Status: {order.shippingState}
+                  </h1>
+                </div>
+                {order.shippingState === "Not Shipped" ? (
+                  <button
+                    onClick={(e) => createOrderInShipStation(e)}
+                    className="ship__button"
+                  >
+                    Ship Product
+                  </button>
+                ) : (
+                  <button
+                    onClick={(e) => createOrderInShipStation(e)}
+                    className="ship__button--disable"
+                  >
+                    Ship Product
+                  </button>
+                )}
+                <button className="order__remove ship__button" onClick={(e)=>removeOrder(e)}>Remove Order</button>
               </div>
-            ))}
-          </div>
-          <div className="customer__info">
-            <div className="order__firstline">
-              <p>
-                {order.firstName} {order.lastName}
-              </p>
-              <p>{order.email}</p>
+              <div className="orders__header">
+                <b>{order.createdAt.slice(0, 10)}</b>
+                <b>{order.transactionId}</b>
+                <b>${order.totalPrice}</b>
+              </div>
+              <div className="orders__list">
+                {order.products.map((data, index) => (
+                  <div key={index} className="order__item">
+                    <b>{data.name}</b>
+                    <b>{data.option}</b>
+                    <b>{data.quantity}</b>
+                    <b>${data.price}</b>
+                    <b>${data.price * data.quantity}</b>
+                  </div>
+                ))}
+              </div>
+              <div className="customer__info">
+                <div className="order__firstline">
+                  <p>
+                    {order.firstName} {order.lastName}
+                  </p>
+                  <p>{order.email}</p>
+                </div>
+                <div className="order__secondline">
+                  <p>{order.address}</p>
+                  <p>{order.city}</p>
+                  <p>{order.state}</p>
+                  <p>{order.zip}</p>
+                </div>
+                <p>{order.phone}</p>
+              </div>
             </div>
-            <div className="order__secondline">
-              <p>{order.address}</p>
-              <p>{order.city}</p>
-              <p>{order.state}</p>
-              <p>{order.zip}</p>
-            </div>
-            <p>{order.phone}</p>
-          </div>
-        </div>}
-        </>)}
+          )}
+        </>
+      )}
     </div>
   );
 };
