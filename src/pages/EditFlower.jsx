@@ -50,7 +50,8 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
     setLoading(true);
     e.preventDefault();
     try {
-      const data = { id: item._id, name, desc, title, price1, price2, price3, images, category}
+      const prices = [ price1, price2, price3 ]
+      const data = { id: item._id, name, desc, title, prices, images, category}
       const response = await axios.post(`${url}/api/flower/update`, data);
       if (response.data.success) {
         toast.success("Flower Added");
