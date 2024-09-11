@@ -43,7 +43,8 @@ const AddFlower = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = { name, desc, title, price1, price2, price3, images: imageArray, category}
+      const prices = [ price1, price2, price3 ]
+      const data = { name, desc, title, prices, images: imageArray, category}
       const response = await axios.post(`${url}/api/flower/add`, data);
       if (response.data.success) {
         toast.success("Flower Added");
