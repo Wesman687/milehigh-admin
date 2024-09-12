@@ -32,13 +32,41 @@
     gap: 90px;
     align-items: center;
     justify-content: center;
+    width: 15vw;
 }
 .sb__link:hover {
     color: red;
+}
+.sb__link {
+    width: 100%;
+    text-align: center;
 }
 .thca {
     position: relative;
     z-index: 2;
     border: 15px solid white;
     width: 10vw;
+}
+.active {
+    background-color: rgb(7, 241, 7);
+    border-radius: 4px;
+    width: 85%;
+    padding-left: 5%;
+    color: black;
+    border-right: none;
+    align-self: flex-end;
+    cursor: not-allowed;
+    box-shadow: -1px 3px 10px rgba(2, 110, 2, 0.6);
+    
+}
+@media (max-width: 956px) {
+    .sb__links {
+        font-size: 18px;
+    }
+}
+@media (max-width: 756px) {
+    .sb__container {
+        display: none;
+    }
+
 }

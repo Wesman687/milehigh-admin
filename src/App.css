@@ -1,41 +1,131 @@
 .components {
-    display: flex;
+  display: flex;
+}
+
+.shadoww {
+  text-shadow:
+    0px -1px 0 #fff,
+    1px 0px 0 #fff,
+    0px 0px 0 #fff,
+    0px 1px 0 #fff;
+}
+
+.split {
+  display: flex;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+}
+
+.page__wrappers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 85vh;
+}
+
+.fa-spinner {
+  animation: rotate 600ms infinite linear;
+}
+
+.mobile__links {
+  top: 0;
+  left: 15px;
+  visibility: none;
+  position: absolute;
+  opacity: 0;
+  border: 1px solid #ddd;
+  width: fit-content;
+  width: 95%;
+  height: 40%;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(36, 194, 4);
+  box-shadow: 1px 1px 10px rgba(248, 247, 247, 0.4);
+  transition: all 350ms ease;
+  transform: translate(100%);
+}
+.menu--open .mobile__links {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0);
+}
+
+.mobile__link {
+  color: #fff;
+  font-size: 24px;
+  padding-bottom: 12px;
+  z-index: 100;
+  cursor: pointer;
+}
+.mobile__link:hover {
+  color: red;
+}
+
+.filler {
+  width: 15vw;
+  height: 85vh;
+  display: flex;
+}
+
+.bars {
+  color: #ddd;
+  width: 50px;
+  display: none;
+}
+.bars__wrapper {
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  padding-right: 24px;
+  z-index: 100;
+}
+.XIcon {
+  color: white;
+  width: 48px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+.XIcon:hover {
+  color: #000;
+}
+
+.nav__bar {
+  background-color: #0d0b24;
+  width: 100vw;
+  display: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0)
   }
-  .shadoww {
-    text-shadow:
-    0px -1px 0 #fff,  
-     1px 0px 0 #fff,
-     0px 0px 0 #fff,
-      0px 1px 0 #fff;
+
+  100% {
+    transform: rotate(360deg)
   }
-  .split {
-    display: flex;
-  }
+}
+
+@media (max-width: 768px) {
   .filler {
-    width: 15vw;
-    height: 85vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+  }
+
+  .bars {
     display: flex;
-    padding-left: 25px;
   }
-  .main {
-    display: flex;
-    width: 100%;
+  .nav__bar {    
+      height: 8vh;
+      display: flex;
   }
-  .page__wrappers {  
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 85vh;
-  }
-  .fa-spinner {
-    animation: rotate 600ms infinite linear;
-  }
-  
-  @keyframes rotate {
-    0% { 
-        transform: rotate(0)
-    }
-    100% {
-        transform: rotate(360deg)
-    }
-  }
+}

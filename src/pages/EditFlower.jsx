@@ -17,7 +17,7 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   const [price3, setPrice3] = useState("");
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
-  
+
   async function uploadImage(e) {
     e.preventDefault();
     const files = e.target.files;
@@ -43,16 +43,16 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   function removeItem(id) {
     removeFlower(id);
   }
-  function removeImage(index, link){
-    setImages(images.filter((item)=> item.link !== link))
+  function removeImage(index, link) {
+    setImages(images.filter((item) => item.link !== link))
   }
   async function onSubmitHandler(e) {
     setLoading(true);
     e.preventDefault();
     try {
-      const prices = [ price1, price2, price3 ]
-      const data = { id: item._id, name, desc, title, prices, images, category}
-      const response = await axios.post(`${url}/api/flower/update`, data);
+      const prices = [price1, price2, price3]
+      const data = { id: item._id, name, desc, title, prices, images, category }
+      const response = await axios.post(`${url || localUrl}/api/flower/update`, data);
       if (response.data.success) {
         toast.success("Flower Added");
       } else {
@@ -64,7 +64,7 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
     setLoading(false);
     updateApi();
   }
-  function updateImagesOrder(images){
+  function updateImagesOrder(images) {
     setImages(images)
   }
   useEffect(() => {
@@ -80,32 +80,31 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
   }, []);
   return (
     <div className="flowers">
-      
       <ReactSortable list={images} setList={updateImagesOrder} className="edit__image--array">
         {images.length > 0 &&
           images.map((item, index) => (
-            <label key={index}>              
-        <p className="x" onClick={()=>removeImage(index, item.link)} >
-          X
-        </p>
+            <figure key={index} className="image__box">
+              <p className="x" onClick={() => removeImage(index, item.link)} >
+                X
+              </p>
               <img src={item.link} className="flower__image x__image" alt="" />
-            </label>
-            
+            </figure>
+
           ))}
-          </ReactSortable>
-            <label className="upload__image--edit">
-            <input
-                      type="file"
-                      name='file'
-                      onChange={(e) => uploadImage(e)}
-                      hidden
-                    />                    
-                      <img
-                        src={upload}
-                        className="upload__image"
-                        alt=""
-                      />
-                      </label>
+      </ReactSortable>
+      <label className="upload__image--edit">
+        <input
+          type="file"
+          name='file'
+          onChange={(e) => uploadImage(e)}
+          hidden
+        />
+        <img
+          src={upload}
+          className="upload__image"
+          alt=""
+        />
+      </label>
       <div className="image__wrapper">
         <div className="info__wrapper">
           <div className="flower__text">
@@ -162,7 +161,10 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
               >
                 Update
               </button>
-              <select
+              
+            </div>
+            <div className="category__wrapper">
+            <select
                 defaultValue={category}
                 className="pd__options"
                 name=""
@@ -173,8 +175,8 @@ const EditFlower = ({ item, removeFlower, updateApi, setLoading }) => {
                 <option value="Flower">Flower</option>
                 <option value="Resin/Crumble">Resin/Crumble</option>
               </select>
-            </div>
             <p className="category">{category}</p>
+            </div>
           </div>
         </div>
       </div>

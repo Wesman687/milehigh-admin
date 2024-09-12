@@ -3,10 +3,20 @@
     width: 85vw;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
-    flex-direction: column;    
-    padding-left: 3%;
+    flex-direction: column;
+    align-content: flex-end;
+    padding: 64px 0px 0px 24px;
     width: 90%;
+}
+.category__wrapper {
+    padding-bottom: 12px;
+}
 
-    
+@media (max-width: 756px) {
+    .landing__container {
+        width: 100vw;
+        padding: 0;
+    }
+
+
 }

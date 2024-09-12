@@ -1,24 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Sidebar.css'
 import { Link, useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
+  const [pathname, setPathName] = useState("");
+  useEffect(() => {
+    setPathName(window.location.pathname);
+  }, []);
   return (
     <div className='sb__container'>
       
       <ul className="sb__links">
-        <li className="sb__link">
-        <Link to="/addflower">Add Flower</Link>
+        <li onClick={()=>setPathName('/addflower')} className={(pathname === '/addflower') ? 'active' : 'sb__link'}>
+        <Link to="/addflower" >Add Flower</Link>
         </li>
-        <li className="sb__link">
+        <li onClick={()=>setPathName('/listflower')} className={(pathname === '/listflower') ? 'active' : 'sb__link'}>
         <Link to="/listflower">List Flower</Link>
         </li>
-        <li className="sb__link">
+        <li onClick={()=>setPathName('/listorders')} className={(pathname === '/listorders') ? 'active' : 'sb__link'}>
         <Link to="/listorders">List Orders</Link>
-        </li>
-        
-       
-
+        </li>       
       </ul>
     </div>
   )

@@ -30,14 +30,22 @@
     justify-content: center;
 
 }
+.upload__images--container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
 .upload__image, .upload__image--list {
     width: 100px;
+    max-height: 80px;
+    overflow: hidden;
     cursor: pointer;
-    padding: 16px;
+    margin: 6px;
+    border-radius: 4px;
 }
 .upload__image--list {
     border: 1px solid grey;
-    border-radius: 4px;
 }
 
 .container {
@@ -95,6 +103,11 @@ p {
 .title__text {
     padding-right: 22px;
 }
+.price__individual {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
 .price__text {
     padding-right: 10px;
 }
@@ -117,4 +130,33 @@ p {
 .submit__button:hover {
     background-color: white;
     color: rgba(0, 255, 0, 0.712);
+}
+
+@media (max-width: 768px) {
+    p {
+        font-size: 18px;
+    }
+    .filler {
+        display: none;
+    }
+    .page__wrapper {
+        align-items: center;
+        justify-content: center;
+    }
+    .upload__image, .upload__image--list {
+        width: 75px;
+        max-height: 60px;
+    }
+    .price__categories {
+        font-size: 12px;
+    }
+    .price_input {
+        width: 50px !important;
+    }
+    .submit__button {
+        font-size: 22px;
+    }
+    .price {
+        flex-wrap: wrap;
+    }
 }

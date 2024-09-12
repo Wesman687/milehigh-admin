@@ -137,9 +137,10 @@ const AddFlower = () => {
                   ></input>
                 </div>
                 <div className="price list">
+                  <div className="price__individual">
                   <p className="price__text">Prices:</p>
                   <p className="price__categories">
-                    {category == "Flower" ? "Quarter" : "2 grams"}
+                    {category === "Flower" ? "Quarter" : "2 grams"}
                   </p>
                   <input
                     onChange={(e) => setPrice1(e.target.value)}
@@ -148,8 +149,10 @@ const AddFlower = () => {
                     placeholder="ex: 30.00"
                     type="number"
                   ></input>
+                  </div>
+                  <div className="price__individual">
                   <p className="price__categories">
-                    {category == "Flower" ? "Half" : "10 grams"}
+                    {category === "Flower" ? "Half" : "10 grams"}
                   </p>
                   <input
                     onChange={(e) => setPrice2(e.target.value)}
@@ -158,6 +161,8 @@ const AddFlower = () => {
                     placeholder="ex: 9.00"
                     type="number"
                   ></input>
+                  </div>
+                  <div className="price__individual">
                   <p className="price__categories">Ounce</p>
                   <input
                     onChange={(e) => setPrice3(e.target.value)}
@@ -166,6 +171,7 @@ const AddFlower = () => {
                     placeholder="ex: 160.00"
                     type="number"
                   ></input>
+                  </div>
                 </div>
                 <div className="description list">
                   <p className="desc__text">Desc:</p>
