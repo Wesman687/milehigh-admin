@@ -6,7 +6,6 @@ import axios from "axios";
 import upload from "../assetts/upload_area.png";
 
 const AddFlower = () => {
-  const [image, setImage] = useState(false);
   const [imageArray, setImageArray] = useState([]);
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
@@ -15,7 +14,6 @@ const AddFlower = () => {
   const [price2, setPrice2] = useState("");
   const [price3, setPrice3] = useState("");
   const [category, setCategory] = useState("");
-  const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   async function uploadImage(e) {
     e.preventDefault();

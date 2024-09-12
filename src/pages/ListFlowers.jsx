@@ -44,7 +44,7 @@ const ListFlowers = () => {
   return (
     <div className="landing__container">
       <div className="flower__wrapper">
-        <p className="flower__title">Flower List</p>
+        <p className="flower__title">Product List</p>
         {((data.length > 0) && !loading) ? 
           data.map((item, index) => (
             <EditFlower item={item} key={index} removeFlower={removeFlower} updateApi={updateApi} setLoading={setLoading}/>

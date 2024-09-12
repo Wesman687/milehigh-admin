@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './Sidebar.css'
 import { Link, useNavigate } from 'react-router-dom'
+import ListIcon from './icons/ListIcon';
+import MoneyIcon from './icons/MoneyIcon';
+import CubeIcon from './icons/CubeIcon';
 
-const Sidebar = () => {
-  const [pathname, setPathName] = useState("");
+const Sidebar = ({setPathName, pathname}) => {
+  const navigate = useNavigate()
   useEffect(() => {
     setPathName(window.location.pathname);
   }, []);
@@ -11,14 +14,26 @@ const Sidebar = () => {
     <div className='sb__container'>
       
       <ul className="sb__links">
-        <li onClick={()=>setPathName('/addflower')} className={(pathname === '/addflower') ? 'active' : 'sb__link'}>
-        <Link to="/addflower" >Add Flower</Link>
+        <li onClick={()=>{
+          setPathName('/addflower')
+          navigate('/addflower')
+        }} className={(pathname === '/addflower') ? 'active' : 'sb__link'}>
+          <CubeIcon classes={'cube-icon'}/>
+        Add Product
         </li>
-        <li onClick={()=>setPathName('/listflower')} className={(pathname === '/listflower') ? 'active' : 'sb__link'}>
-        <Link to="/listflower">List Flower</Link>
+        <li onClick={()=>{
+          setPathName('/listflower')
+          navigate('/listflower')
+        }} className={(pathname === '/listflower') ? 'active' : 'sb__link'}>
+          <ListIcon classes={'list-icon'}/>
+        List Product
         </li>
-        <li onClick={()=>setPathName('/listorders')} className={(pathname === '/listorders') ? 'active' : 'sb__link'}>
-        <Link to="/listorders">List Orders</Link>
+        <li onClick={()=>{
+          setPathName('/listorders')
+          navigate('/listorders')
+        }} className={(pathname === '/listorders') ? 'active' : 'sb__link'}>
+          <MoneyIcon classes={'money-icon'} />
+        List Orders
         </li>       
       </ul>
     </div>

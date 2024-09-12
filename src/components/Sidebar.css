@@ -8,8 +8,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;  
+    justify-content: center;  
     position: fixed;  
+    padding-left: 18px;
 
 }
 .sb__container::before {
@@ -24,22 +25,24 @@
 .sb__links {
     position: relative;
     z-index: 2;
-    display: flex;
+    display: flex;    
     flex-direction: column;
     color: white;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: bold;
     gap: 90px;
-    align-items: center;
     justify-content: center;
-    width: 15vw;
+    width: 100%;
 }
 .sb__link:hover {
-    color: red;
+    color: rgba(7, 241, 7, 0.658);
 }
 .sb__link {
     width: 100%;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
 }
 .thca {
     position: relative;
@@ -48,21 +51,28 @@
     width: 10vw;
 }
 .active {
-    background-color: rgb(7, 241, 7);
-    border-radius: 4px;
-    width: 85%;
-    padding-left: 5%;
-    color: black;
+    background-color: rgba(7, 241, 7, 0.658);
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
     border-right: none;
     align-self: flex-end;
     cursor: not-allowed;
     box-shadow: -1px 3px 10px rgba(2, 110, 2, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 2px;
     
 }
 @media (max-width: 956px) {
-    .sb__links {
-        font-size: 18px;
+    .sb__container {
+        padding-left: 12px;
     }
+    .sb__links {
+        font-size: 14px;
+    }    
 }
 @media (max-width: 756px) {
     .sb__container {
