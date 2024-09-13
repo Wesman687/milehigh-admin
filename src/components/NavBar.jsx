@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import CubeIcon from './icons/CubeIcon';
 import ListIcon from './icons/ListIcon';
 import MoneyIcon from './icons/MoneyIcon';
+import HomeIcon from './icons/HomeIcon';
 
 export default function NavBar({pathname, setPathName}) {  
     const navigate = useNavigate()  
@@ -21,6 +22,14 @@ export default function NavBar({pathname, setPathName}) {
             <div className="mobile__container">
             <div onClick={closeMenu}>
             <XIcon />
+            </div>
+            <div className={pathname === '/' ? 'mobile__active' : 'mobile__inactive'} onClick={()=>{
+              closeMenu()
+              setPathName('/')
+              navigate('/')
+            }}>
+                <HomeIcon classes={'nav-icon'}/>
+            Home
             </div>
             <div className={pathname === '/addflower' ? 'mobile__active' : 'mobile__inactive'} onClick={()=>{
               closeMenu()

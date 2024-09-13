@@ -11,6 +11,27 @@
 .category__wrapper {
     padding-bottom: 12px;
 }
+.top__sold--image {
+    width: 75px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+.statisics__wrapper h1 {
+    font-size: 36px;
+}
+.statisics__wrapper h2 {
+    font-size: 24px;
+}
+.statisics__wrapper p, .statisics__wrapper span {
+    font-size: 22px;
+    color: rgba(7, 241, 7, 0.658);
+}
+.sold__container, .orders__row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 0 24px;
+}
 
 @media (max-width: 756px) {
     .landing__container {

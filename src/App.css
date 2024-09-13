@@ -67,7 +67,7 @@
   visibility: visible;
   transform: translate(0);
 }
-.list-icon, .money-icon, .cube-icon {
+.sidebar-icons {
   width: 24px;
 }
 
