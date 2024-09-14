@@ -39,7 +39,7 @@ const ListOrders = () => {
             {data.length > 0 && data.map((data, index) => (
                 <>
                 
-            <div key={index} className="orders__info" onClick={()=>navigate(`./${index}`)}>
+            <div key={index} className="orders__info" onClick={()=>navigate(`/orders/${data._id}`)}>
                 <p className="order__text">{data.createdAt.slice(0,10)}</p>
                 <p className="order__text">${data.totalPrice}</p>
                 <p className="order__text">Payment Status: {data.paymentStatus}</p>

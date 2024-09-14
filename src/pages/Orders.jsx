@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import "./Orders.css";
 import { toast } from "react-toastify";
 const Orders = () => {
-  const [order, setOrder] = useState(null);
+  const [order, setOrder] = useState();
   const [loading, setLoading] = useState(false);
   const [orderNumber, setOrderNumber] = useState(0);
   let id = useParams();
@@ -161,13 +161,12 @@ const Orders = () => {
     try {
       const response = await axios.get(`${url}/api/orders/list`);
       if (response.data.success) {
-        setOrder(response.data.orders[id]);
+        setOrder(response.data.orders.filter((order)=> order._id === id)[0]);
       }
     } catch (error) {
       alert("Error Occured");
     }
   };
-  console.log(order);
   useEffect(() => {
     fetchOrder();
   }, []);

@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import { url } from '../../App';
 import { toast } from 'react-toastify';
 import { getProductTotals, mostPopularSize, topProduct } from '../../functions/products';
+import { topBuyer, topCustomer } from '../../functions/customers';
 
 export const AdminContext = createContext()
 
@@ -17,6 +18,8 @@ const AdminContextProvider = (props) => {
     const [top, setTop] = useState(false)  
     const [topSize, setTopSize] = useState('')
     const [topSizeAmount, setTopSizeAmount] = useState('')
+    const [customerOrderAmounts, setCustomerOrderAmounts] = useState([])
+    const [topCustomerOrders, setTopCustomerOrders] = useState({})
 
     const fetchFlower = async () => {
       setLoading(true)
@@ -59,6 +62,10 @@ const AdminContextProvider = (props) => {
         res = await mostPopularSize(productTotals)
         setTopSize(res.size)
         setTopSizeAmount(res.total)
+        res = await topBuyer(orders)
+        setCustomerOrderAmounts(res)
+        res = await topCustomer(res)
+        setTopCustomerOrders(res.topCustomer)
       }
       useEffect(()=> {
         fetchFlower()
@@ -66,7 +73,7 @@ const AdminContextProvider = (props) => {
       },[])
     const contextValue = {
         fetchFlower, fetchOrders, flowers, orders, loading, orderProductTotals, topId, topTotal, top, getTotals, topIdOption,
-        topSize, topSizeAmount,
+        topSize, topSizeAmount, topCustomerOrders
 
     }
 

@@ -22,7 +22,6 @@ export async function getProductTotals(orders) {
       }
     }
   }
-  console.log(products)
   return products
 }
 
@@ -43,7 +42,6 @@ export async function mostPopularSize(orderProductTotals) {
   let products = []
   
     for (const p of orderProductTotals) {
-      console.log(p)
       let notExists = true
       let temp = { size: p.size, total: p.total }
       if (products.length > 0) {
@@ -61,8 +59,6 @@ export async function mostPopularSize(orderProductTotals) {
         products.push(temp)
       }
     }
-  
-  console.log(products)
   let tempSizeTotal = 0
   let tempSize
   products.forEach((item) => {
@@ -71,7 +67,6 @@ export async function mostPopularSize(orderProductTotals) {
       tempSize = item.size
     }
   })
-  console.log(tempSize, tempSizeTotal)
   return { size: tempSize, total: tempSizeTotal }
 }
 

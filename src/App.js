@@ -11,7 +11,7 @@ import NavBar from './components/NavBar.jsx'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { AdminContext } from './components/context/AdminContextProvider.jsx'
-import Statistics from './pages/Statistics.jsx'
+import CustomerPage from './pages/CustomerPage.jsx'
 
 
 export const url = 'https://milehighserv.onrender.com'
@@ -34,11 +34,11 @@ const App = () => {
               <ToastContainer theme='dark' />
               <Routes>{((flowers.length > 0) && (orders.length > 0)) && <>
                 <Route path='/' element={<Landing />} />
-                <Route path='/home' element={<Statistics /> } />
                 <Route path='/addflower' element={<AddFlower />} />
                 <Route path='/listflower' element={<ListFlowers />} />
                 <Route path='/listorders' element={<ListOrders />} />
-                <Route path='/listorders/:index' key="_index" element={<Orders />} />
+                <Route path='/orders/:index' key="_index" element={<Orders />} />
+                <Route path='/customers/:index' key="_index" element={<CustomerPage /> } />
                 </>}
               </Routes>
             </div>
