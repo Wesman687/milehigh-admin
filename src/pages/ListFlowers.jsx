@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./ListFlowers.css";
 import { url } from "../App";
 import { toast } from "react-toastify";
@@ -6,10 +6,12 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import EditFlower from "./EditFlower";
+import { AdminContext } from "../components/context/AdminContextProvider";
 
 const ListFlowers = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false)
+  const { flowers } = useContext(AdminContext)
   const fetchFlower = async () => {
     setLoading(true)
     try {
@@ -40,7 +42,6 @@ const ListFlowers = () => {
   useEffect(() => {
     fetchFlower();
   }, []);
-  console.log(data);
   return (
     <div className="landing__container">
       <div className="flower__wrapper">

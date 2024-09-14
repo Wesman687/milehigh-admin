@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Sidebar.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import ListIcon from './icons/ListIcon';
 import MoneyIcon from './icons/MoneyIcon';
 import CubeIcon from './icons/CubeIcon';

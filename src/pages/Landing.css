@@ -8,6 +8,13 @@
     padding: 64px 0px 0px 24px;
     width: 90%;
 }
+
+.statisics__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80vh;
+}
 .category__wrapper {
     padding-bottom: 12px;
 }
