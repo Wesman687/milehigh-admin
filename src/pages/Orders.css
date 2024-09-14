@@ -9,6 +9,21 @@
     border: 2px solid rgb(150, 150, 150);    
     max-width: 900px;
 }
+.order__date {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+    width: 80%;
+}
+.order__date b {
+    color: #ddd;
+}
+.order__email--link {
+    color: rgba(0, 255, 0, 0.712);
+}
+.order__email--link:hover {
+    color: rgb(0, 255, 0);
+}
 .order__item {
     display: grid;
     grid-template-columns: 300px 200px 150px 150px .5fr;

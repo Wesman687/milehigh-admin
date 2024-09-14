@@ -39,6 +39,9 @@
     gap: 24px;
     padding: 24px 0 24px;
 }
+.orders__row link:hover {
+    color: rgb(7, 241, 7);
+}
 
 @media (max-width: 756px) {
     .landing__container {

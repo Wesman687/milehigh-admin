@@ -1,15 +1,17 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { localUrl, url } from "../App";
 import { useEffect } from "react";
 import "./Orders.css";
 import { toast } from "react-toastify";
+import { AdminContext } from "../components/context/AdminContextProvider";
 const Orders = () => {
   const [order, setOrder] = useState();
   const [loading, setLoading] = useState(false);
   const [orderNumber, setOrderNumber] = useState(0);
+  const { flowers } = useContext(AdminContext)
   let id = useParams();
   id = id.index;
   const navigate = useNavigate()
@@ -167,6 +169,7 @@ const Orders = () => {
       alert("Error Occured");
     }
   };
+  console.log(order)
   useEffect(() => {
     fetchOrder();
   }, []);
@@ -206,10 +209,12 @@ const Orders = () => {
                 )}
                 <button className="order__remove ship__button" onClick={(e)=>removeOrder(e)}>Remove Order</button>
               </div>
-              <div className="orders__header">
-                <b>{order.createdAt.slice(0, 10)}</b>
-                <b>{order.transactionId}</b>
-                <b>${order.totalPrice}</b>
+              <div className="order__item">
+                <b>Name</b>
+                <b>Size</b>
+                <b>Quantity</b>
+                <b>Price</b>
+                <b>Total</b>
               </div>
               <div className="orders__list">
                 {order.products.map((data, index) => (
@@ -222,12 +227,16 @@ const Orders = () => {
                   </div>
                 ))}
               </div>
+              <div className="order__date">
+                <b>Created: {(new Date(order.createdAt).toLocaleString())}</b>
+                <b>Sub Total: ${order.totalPrice.toFixed(2)}</b>
+              </div>
               <div className="customer__info">
                 <div className="order__firstline">
                   <p>
                     {order.firstName} {order.lastName}
                   </p>
-                  <p>{order.email}</p>
+                  <Link to={`/customers/` + order.email}><p className="order__email--link">{order.email}</p></Link>
                 </div>
                 <div className="order__secondline">
                   <p>{order.address}</p>
